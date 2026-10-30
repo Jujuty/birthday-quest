@@ -1,0 +1,528 @@
+
+<!DOCTYPE html>
+
+<html lang="zh-HK">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="#100d1c" name="theme-color"/>
+<title>Birthday Quest ♡ — Mr Kwok Hin Lo</title>
+<style>
+    :root {
+      --bg: #100d1c;
+      --panel: #191428;
+      --purple: #b79aff;
+      --light: #e8ddff;
+      --muted: #b7afc8;
+      --border: #45365f;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 50% 0%, #33214f 0%, transparent 48%),
+        var(--bg);
+      color: #f8f5ff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "Noto Sans TC", sans-serif;
+      min-height: 100vh;
+      line-height: 1.75;
+    }
+
+    button { font: inherit; }
+
+    .wrap {
+      width: min(100% - 32px, 650px);
+      margin: 0 auto;
+      padding: 28px 0 60px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      margin-bottom: 36px;
+    }
+
+    .logo { color: var(--purple); font-weight: 800; }
+
+    .music-btn {
+      background: transparent;
+      color: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .screen { display: none; animation: appear .45s ease; }
+    .screen.active { display: block; }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .eyebrow {
+      color: var(--purple);
+      letter-spacing: 3px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(30px, 8vw, 48px);
+      line-height: 1.2;
+      letter-spacing: -1px;
+      margin: 16px 0;
+    }
+
+    h2 {
+      font-size: clamp(24px, 6vw, 34px);
+      line-height: 1.35;
+      margin: 12px 0;
+    }
+
+    h3 { line-height: 1.4; }
+
+    .purple { color: var(--purple); }
+    .muted { color: var(--muted); }
+    .center { text-align: center; }
+
+    .hero {
+      min-height: 62vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .symbol {
+      font-size: 46px;
+      color: var(--purple);
+      margin-bottom: 16px;
+      filter: drop-shadow(0 0 20px #9670ff80);
+    }
+
+    .panel {
+      background: linear-gradient(145deg, #201831, #171222);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: clamp(20px, 5vw, 30px);
+      margin: 20px 0;
+      box-shadow: 0 12px 40px #00000025;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 15px 18px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: #211a31;
+      color: #f8f5ff;
+      text-align: left;
+      cursor: pointer;
+      margin-top: 11px;
+      min-height: 52px;
+      transition: background .2s, border-color .2s, transform .2s;
+      overflow-wrap: anywhere;
+    }
+
+    .btn:hover, .btn:focus-visible {
+      border-color: var(--purple);
+      background: #302343;
+      outline: none;
+    }
+
+    .btn:active { transform: scale(.985); }
+
+    .btn.primary {
+      background: var(--purple);
+      color: #171023;
+      border-color: var(--purple);
+      text-align: center;
+      font-weight: 800;
+    }
+
+    .btn.primary:hover { background: #d0bcff; }
+
+    .btn.option.selected {
+      border-color: var(--purple);
+      background: #38264e;
+    }
+
+    .progress {
+      height: 5px;
+      background: #30273e;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 16px 0 24px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      background: var(--purple);
+      transition: width .3s;
+    }
+
+    .question-number {
+      color: var(--purple);
+      font-size: 12px;
+      letter-spacing: 2px;
+      font-weight: 800;
+    }
+
+    .feedback {
+      min-height: 30px;
+      margin-top: 14px;
+      color: var(--light);
+      font-size: 14px;
+    }
+
+    .chapter { margin-top: 28px; }
+
+    .chapter-label {
+      color: var(--purple);
+      font-size: 11px;
+      letter-spacing: 2px;
+      font-weight: 800;
+    }
+
+    .photo-placeholder {
+      min-height: 210px;
+      border: 1px dashed #79669c;
+      border-radius: 16px;
+      background:
+        radial-gradient(ellipse at center, #42305f 0%, #201831 75%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--light);
+      text-align: center;
+      padding: 20px;
+      margin: 16px 0;
+    }
+
+    .photo-placeholder .camera { font-size: 34px; }
+
+    .memory-photo {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 520px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin: 16px 0;
+    }
+
+    .memory-text {
+      color: #e3dbea;
+      white-space: pre-line;
+    }
+
+    .divider {
+      border: 0;
+      border-top: 1px solid #3b2e50;
+      margin: 28px 0;
+    }
+
+    .tiny {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .hidden { display: none !important; }
+
+    footer {
+      text-align: center;
+      margin-top: 48px;
+      color: #9387a9;
+      font-size: 12px;
+    }
+
+    @media (min-width: 600px) {
+      .wrap { padding-top: 40px; }
+      .hero { min-height: 65vh; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+<main class="wrap">
+<header class="topbar">
+<div class="logo">✦ BIRTHDAY QUEST</div>
+<button class="music-btn" id="musicBtn" type="button">
+        ♫ 播放音樂
+      </button>
+</header>
+<!-- 首頁 -->
+<section class="screen active" id="home"><div class="hero"><div class="symbol">✧ ♡ ✧</div><div class="eyebrow">🎮 QUEST: Birthday Surprise</div><h1>HAPPY BIRTHDAY,<br/><span class="purple">MR KWOK HIN LO</span> 👨🏽‍🦳❤️</h1><p class="muted">今日有一個特別任務, 等待你解鎖!</p><div class="panel"><div class="eyebrow">PLAYER PROFILE</div><p>玩家: 盧國Hin<br/>任務難度: ⭐️⭐️⭐️⭐️⭐️<br/>獎勵: 一份為你準備嘅生日驚喜</p><p class="memory-text">聽講今日有個人生日喎？
+咦, 嗰個人咪就係你囉! 😏
+唔好咁快走住, 今次唔係普通生日祝福.
+你需要通過幾個小測驗, 先可以解鎖我為你準備嘅秘密🫵🏻
+準備好未?</p><button class="btn primary" id="startBtn" type="button">START MISSION →</button></div></div></section>
+<!-- 問答 -->
+<section class="screen" id="quiz"><div class="eyebrow">BEFORE WE BEGIN…</div><h2>想收到生日禮物? 😌</h2><p class="muted">先證明你真係了解我哋嘅小世界啦~</p><div class="progress"><div class="progress-fill" id="progressFill"></div></div><div class="panel"><div class="question-number" id="questionNumber">QUESTION 01 / 03</div><h3 id="questionText"></h3><div id="options"></div><div aria-live="polite" class="feedback" id="feedback"></div><button class="btn primary" id="confirmBtn" type="button">確認答案 →</button></div></section>
+<!-- 解鎖祝福 -->
+<section class="screen" id="unlock"><div class="hero center"><div class="symbol">✦ LEVEL UP ✦</div><div class="eyebrow">MISSION COMPLETE</div><h1>ALL QUESTIONS<br/><span class="purple">CLEARED! ♡</span></h1><div class="panel"><p class="memory-text">恭喜你成功通關haha~
+不過! 真正嘅獎勵唔係答啱問題先有.
+
+而係------------
+
+多謝你出現喺我嘅生命入面.
+準備好解鎖我哋嘅回憶未?</p><button class="btn primary" id="memoriesBtn" type="button">UNLOCK OUR MEMORIES ♡</button></div></div></section>
+<!-- 回憶相簿 -->
+<section class="screen" id="memories"><div class="eyebrow">SECRET LEVEL / OUR STORY</div><h1>OUR LITTLE<br/><span class="purple">UNIVERSE ♡</span></h1><article class="panel chapter memory-step" id="chapter1"><div class="chapter-label">CHAPTER 01</div><h2>WHERE IT ALL BEGAN</h2><div class="photo-placeholder"><div class="camera">♡</div><strong>MEMORY SLOT 01</strong><span class="tiny">之後可以放我哋嘅相片</span></div><p class="memory-text">諗返起我哋最初識嘅時候, 其實都幾得意.
+嗰陣嘅我, 可能仲未知道, 原來你之後會慢慢變成我生活入面咁重要嘅人.
+一開始可能只係普通嘅聊天、分享日常、講吓無聊嘢.
+但唔知由幾時開始, 我開始習慣有你.
+習慣有咩事同你講, 見到有趣嘅嘢會想同你分享, 連一啲好細微嘅事, 都會想第一時間話你知.
+最神奇嘅係.......
+以前覺得好普通嘅日常, 有咗你之後, 好似都變得有趣咗.
+當然啦, 你都有時幾欠打.
+但冇辦法, 邊個叫我偏偏就鍾意你呢個Kam友.
+
+如果可以重新認識你一次, 我都仲係會想行近你.</p><button class="btn primary chapter-next" data-next="2" type="button">NEXT CHAPTER →</button></article><article class="panel chapter memory-step hidden" id="chapter2"><div class="chapter-label">CHAPTER 02</div><h2>OUR FAVOURITE MOMENTS</h2><div class="photo-placeholder"><div class="camera">♡</div><strong>MEMORY SLOT 02</strong><span class="tiny">之後可以放我哋嘅相片</span></div><p class="memory-text">你知我講嘢唔係好叻, 同埋我又唔係好識講一啲浪漫嘅嘢
+但平凡嘅日子, 因為有你而特別.
+我一直覺得, 一段關係最珍貴嘅, 未必係去過幾多特別嘅地方, 又或者收到幾貴重嘅禮物.
+反而係一啲好細微, 好普通嘅Moment就已經足夠.
+一齊食飯、一齊行街、一齊講廢話, 甚至只係坐喺對方身邊, 各自做緊自己嘅事.
+呢啲事聽落好平常, 但如果對象係你, 我就會覺得值得記低.
+我鍾意同你一齊創造回憶, 亦都鍾意我哋可以唔使刻意安排啲咩, 好隨意都可以好開心.
+我唔敢話我哋每一日都一定會完美.
+但我希望, 無論之後我哋去到邊度、經歷啲咩, 都仲可以一齊發掘新嘅地方, 食好多好食嘅嘢, 影好多好多相。
+最好就係....
+相簿入面有好多我哋嘅合照, 而我身邊嗰個人, 一直都係你~</p><button class="btn primary chapter-next" data-next="3" type="button">NEXT CHAPTER →</button></article><article class="panel chapter memory-step hidden" id="chapter3"><div class="chapter-label">CHAPTER 03</div><h2>TO BE CONTINUED…</h2><div class="photo-placeholder"><div class="camera">♡</div><strong>MEMORY SLOT 03</strong><span class="tiny">之後可以放我哋嘅相片</span></div><p class="memory-text">其實我對未來有好多想像.
+我想同你去唔同嘅地方, 試唔同嘅嘢,睇唔同嘅風景.
+雖然你經歷過好多嘅嘢, 已經有好多經驗
+但我都想同你經歷屬於我哋嘅習慣同默契, 創造更多回憶.
+我想我哋可以一齊笑、一齊玩、一齊做傻事.
+但我亦都知道, 真正嘅生活唔會永遠都係開心同浪漫.
+以後可能會有壓力、有爭執, 有大家意見唔同嘅時候.
+我唔需要我哋永遠唔會吵架, 亦都唔需要你永遠都做到最好.
+我只希望, 當我哋遇到問題嘅時候, 大家都仲願意好好溝通, 願意理解對方, 而唔係輕易放棄我哋.
+因為對我嚟講, 最重要嘅唔係每一日都要有幾轟烈嘅浪漫.
+而係過咗一段時間之後, 我哋仲會好自然咁選擇對方.
+我想要嘅未來, 唔一定要有幾完美嘅劇本.
+只要我哋都仲認真咁將對方放喺未來入面, 就已經好好~
+如果可以嘅話, 以後仲有好多生日, 好多節日, 好多普通嘅星期一.
+我都想同你一齊過。</p><button class="btn primary chapter-next" data-next="4" type="button">UNLOCK FINAL MESSAGE →</button></article><div class="panel center hidden" id="finalMessage"><div class="symbol">♡</div><h2>HAPPY BIRTHDAY, MY LOVE 🎂</h2><p class="purple">YOU ARE MY FAVOURITE PERSON.</p><p class="memory-text">生日快樂呀, 我最鍾意嘅人.♡
+首先, 祝你新一年身體健康、日日開心, 想做嘅事都可以慢慢實現.
+希望你遇到唔開心嘅時候, 有人可以聽你講, 攰嘅時候, 可以好好休息, 遇到困難嘅時候, 都有勇氣繼續行落去。
+我知道自己唔係一個好識講甜言蜜語嘅人.
+有時可能仲會成日笑你, 寸你, 同你講啲無聊嘢.
+但其實, 好多時候, 我都只係想見到你開心.
+我可能唔會每一次都講得好好聽, 亦都未必每一次都做得最好.
+但我希望你知道, 你對我嚟講, 真係好重要.
+多謝你成為我生活入面嘅一部分, 多謝你同我分享你嘅日常, 亦都多謝你俾我機會, 參與你人生入面嘅好多時刻.
+生日禮物可能會用完, 蛋糕會食晒, 相片亦都會慢慢變成回憶.
+但我希望, 當你以後再睇返呢個小網站, 你會記得.....
+有一個人, 曾經花咗好多心思, 想用自己嘅方式, 認真咁為你準備一份生日驚喜.
+而嗰個人, 就係我Kam Yan~~~
+生日快樂~希望新一年嘅你, 比舊一年更幸福.
+亦都希望往後好多個生日, 我仲有機會親口同你講呢句.
+I love you. Always in my own little way.💜</p></div></section>
+<footer>MADE WITH LOVE · YOUR NEXT LEVEL STARTS HERE ♡</footer>
+</main>
+<!-- 音樂檔之後可以放入 music/birthday.mp3 -->
+<audio id="bgMusic" loop="" preload="none">
+<source src="music/birthday.mp3" type="audio/mpeg"/>
+</audio>
+<script>
+    const questions = [
+  {
+    "question": "我喺你心目中係咩人?",
+    "options": [
+      "A. 靚女BB豬莉雅🐷",
+      "B. 靚女、可愛、溫柔、體貼、善解人意嘅豬莉雅💗",
+      "C. 你嘅小公主, 必須每日提供情緒價值同陪玩服務👑",
+      "D. 一個神秘的女人",
+      "E. 以上全部都係正確答案"
+    ],
+    "answer": 4,
+    "hint": "你諗清楚先喎, 呢題咁都會有機會答錯???😤"
+  },
+  {
+    "question": "我電話入面，你嘅聯絡人名稱係？",
+    "options": [
+      "A. Sugar Daddy",
+      "B. 張敬軒",
+      "C. 李克勤",
+      "D. Kam Hin",
+      "E. Anson Lo",
+      "F. 屎怪軒"
+    ],
+    "answer": 3,
+    "hint": "其實全部都係正確答案~🤓"
+  },
+  {
+    "question": "我最鍾意嘅嘢食係?",
+    "options": [
+      "A. 薯條",
+      "B. 冰",
+      "C. 知名連鎖餐廳麥記",
+      "D. 泡菜湯",
+      "E. 陳醋",
+      "F. 以上全部都係！"
+    ],
+    "answer": 5,
+    "hint": "全部都係我嘅愛喎! 呢題都唔識???"
+  }
+];
+
+    let currentQuestion = 0;
+    let selectedAnswer = null;
+    let locked = false;
+
+    const screens = document.querySelectorAll(".screen");
+    const questionNumber = document.getElementById("questionNumber");
+    const questionText = document.getElementById("questionText");
+    const optionsBox = document.getElementById("options");
+    const feedback = document.getElementById("feedback");
+    const confirmBtn = document.getElementById("confirmBtn");
+    const progressFill = document.getElementById("progressFill");
+
+    function showScreen(id) {
+      screens.forEach(screen => screen.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function renderQuestion() {
+      selectedAnswer = null;
+      locked = false;
+      const q = questions[currentQuestion];
+
+      questionNumber.textContent =
+        `QUESTION ${String(currentQuestion + 1).padStart(2, "0")} / ${String(questions.length).padStart(2, "0")}`;
+      questionText.textContent = q.question;
+      feedback.textContent = "";
+      confirmBtn.textContent = "確認答案 →";
+      confirmBtn.disabled = false;
+      confirmBtn.style.opacity = "1";
+      progressFill.style.width = `${(currentQuestion / questions.length) * 100}%`;
+
+      optionsBox.replaceChildren();
+
+      q.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "btn option";
+        button.textContent = option;
+
+        button.addEventListener("click", () => {
+          if (locked) return;
+          selectedAnswer = index;
+          optionsBox.querySelectorAll(".option").forEach(item => {
+            item.classList.remove("selected");
+          });
+          button.classList.add("selected");
+          feedback.textContent = "已選擇答案，準備好就確認啦！";
+        });
+
+        optionsBox.appendChild(button);
+      });
+    }
+
+    document.getElementById("startBtn").addEventListener("click", () => {
+      currentQuestion = 0;
+      showScreen("quiz");
+      renderQuestion();
+    });
+
+    confirmBtn.addEventListener("click", () => {
+      if (locked) {
+        currentQuestion++;
+        if (currentQuestion >= questions.length) {
+          progressFill.style.width = "100%";
+          showScreen("unlock");
+        } else {
+          renderQuestion();
+        }
+        return;
+      }
+
+      if (selectedAnswer === null) {
+        feedback.textContent = "喂！你仲未揀答案呀 😂";
+        return;
+      }
+
+      const q = questions[currentQuestion];
+
+      if (selectedAnswer !== q.answer) {
+        feedback.textContent = "❌ 答錯咗！" + q.hint;
+        return;
+      }
+
+      locked = true;
+      feedback.textContent = "✓ 答啱啦！你真係有好好留意我 ♡";
+      progressFill.style.width =
+        `${((currentQuestion + 1) / questions.length) * 100}%`;
+
+      if (currentQuestion === questions.length - 1) {
+        confirmBtn.textContent = "完成任務 · 解鎖祝福 ✨";
+      } else {
+        confirmBtn.textContent = "下一題 →";
+      }
+    });
+
+    document.getElementById("memoriesBtn").addEventListener("click", () => {
+      showScreen("memories");
+    });
+
+    const musicBtn = document.getElementById("musicBtn");
+    const bgMusic = document.getElementById("bgMusic");
+
+    musicBtn.addEventListener("click", async () => {
+      if (bgMusic.paused) {
+        try {
+          await bgMusic.play();
+          musicBtn.textContent = "♫ 暫停音樂";
+        } catch (error) {
+          musicBtn.textContent = "♫ 尚未加入音樂";
+          alert("音樂檔仲未放入網站。之後加入 music/birthday.mp3，就可以喺呢度播放啦！");
+        }
+      } else {
+        bgMusic.pause();
+        musicBtn.textContent = "♫ 播放音樂";
+      }
+    });
+  
+    document.querySelectorAll(".chapter-next").forEach(button => {
+      button.addEventListener("click", () => {
+        const next = Number(button.dataset.next);
+        document.querySelectorAll(".memory-step").forEach(ch => ch.classList.add("hidden"));
+        if (next <= 3) {
+          const section = document.getElementById(`chapter${next}`);
+          section.classList.remove("hidden");
+          section.scrollIntoView({behavior:"smooth", block:"start"});
+        } else {
+          const section = document.getElementById("finalMessage");
+          section.classList.remove("hidden");
+          section.scrollIntoView({behavior:"smooth", block:"start"});
+        }
+      });
+    });
+</script>
+</body>
+</html>
