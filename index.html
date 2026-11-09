@@ -265,6 +265,23 @@
         transition-duration: .01ms !important;
       }
     }
+
+    /* Mobile swipe photo stories */
+    .story-gallery { margin: 18px 0 24px; }
+    .story-track { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth; scrollbar-width:none; -webkit-overflow-scrolling:touch; border-radius:16px; touch-action:pan-x pan-y; }
+    .story-track::-webkit-scrollbar { display:none; }
+    .story-slide { flex:0 0 100%; min-width:0; scroll-snap-align:start; }
+    .story-slide img { display:block; width:100%; height:auto; max-height:490px; aspect-ratio:4 / 5; object-fit:contain; background:#100d1c; border-radius:16px; }
+    .story-caption { min-height:142px; padding:18px 12px 8px; }
+    .story-count { color:var(--purple); font-size:11px; font-weight:800; letter-spacing:2px; }
+    .story-caption p { margin:9px 0 0; color:#e3dbea; font-size:15px; line-height:1.8; white-space:pre-line; overflow-wrap:anywhere; }
+    .story-controls { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:8px; }
+    .story-arrow { flex:0 0 40px; height:40px; border:1px solid var(--border); border-radius:50%; background:#211a31; color:var(--light); font-size:27px; cursor:pointer; }
+    .story-arrow:disabled { opacity:.3; cursor:default; }
+    .story-dots { display:flex; align-items:center; justify-content:center; gap:9px; }
+    .story-dot { width:8px; height:8px; border:0; border-radius:50%; background:#6b5b80; padding:0; cursor:pointer; }
+    .story-dot.active { width:10px; height:10px; background:var(--purple); }
+    .story-hint { text-align:center; color:var(--muted); font-size:12px; margin:12px 0 0; }
   </style>
 </head>
 <body>
@@ -292,41 +309,7 @@
 多謝你出現喺我嘅生命入面.
 準備好解鎖我哋嘅回憶未?</p><button class="btn primary" id="memoriesBtn" type="button">UNLOCK OUR MEMORIES ♡</button></div></div></section>
 <!-- 回憶相簿 -->
-<section class="screen" id="memories"><div class="eyebrow">SECRET LEVEL / OUR STORY</div><h1>OUR LITTLE<br/><span class="purple">UNIVERSE ♡</span></h1><article class="panel chapter memory-step" id="chapter1"><div class="chapter-label">CHAPTER 01</div><h2>WHERE IT ALL BEGAN</h2><div class="photo-placeholder"><div class="camera">♡</div><strong>MEMORY SLOT 01</strong><span class="tiny">之後可以放我哋嘅相片</span></div><p class="memory-text">諗返起我哋最初識嘅時候, 其實都幾得意.
-嗰陣嘅我, 可能仲未知道, 原來你之後會慢慢變成我生活入面咁重要嘅人.
-一開始可能只係普通嘅聊天、分享日常、講吓無聊嘢.
-但唔知由幾時開始, 我開始習慣有你.
-習慣有咩事同你講, 見到有趣嘅嘢會想同你分享, 連一啲好細微嘅事, 都會想第一時間話你知.
-最神奇嘅係.......
-以前覺得好普通嘅日常, 有咗你之後, 好似都變得有趣咗.
-當然啦, 你都有時幾欠打.
-但冇辦法, 邊個叫我偏偏就鍾意你呢個Kam友.
-
-如果可以重新認識你一次, 我都仲係會想行近你.</p><button class="btn primary chapter-next" data-next="2" type="button">NEXT CHAPTER →</button></article><article class="panel chapter memory-step hidden" id="chapter2"><div class="chapter-label">CHAPTER 02</div><h2>OUR FAVOURITE MOMENTS</h2><div class="photo-placeholder"><div class="camera">♡</div><strong>MEMORY SLOT 02</strong><span class="tiny">之後可以放我哋嘅相片</span></div><p class="memory-text">你知我講嘢唔係好叻, 同埋我又唔係好識講一啲浪漫嘅嘢
-但平凡嘅日子, 因為有你而特別.
-我一直覺得, 一段關係最珍貴嘅, 未必係去過幾多特別嘅地方, 又或者收到幾貴重嘅禮物.
-反而係一啲好細微, 好普通嘅Moment就已經足夠.
-一齊食飯、一齊行街、一齊講廢話, 甚至只係坐喺對方身邊, 各自做緊自己嘅事.
-呢啲事聽落好平常, 但如果對象係你, 我就會覺得值得記低.
-我鍾意同你一齊創造回憶, 亦都鍾意我哋可以唔使刻意安排啲咩, 好隨意都可以好開心.
-我唔敢話我哋每一日都一定會完美.
-但我希望, 無論之後我哋去到邊度、經歷啲咩, 都仲可以一齊發掘新嘅地方, 食好多好食嘅嘢, 影好多好多相。
-最好就係....
-相簿入面有好多我哋嘅合照, 而我身邊嗰個人, 一直都係你~</p><button class="btn primary chapter-next" data-next="3" type="button">NEXT CHAPTER →</button></article><article class="panel chapter memory-step hidden" id="chapter3"><div class="chapter-label">CHAPTER 03</div><h2>TO BE CONTINUED…</h2><div class="photo-placeholder"><div class="camera">♡</div><strong>MEMORY SLOT 03</strong><span class="tiny">之後可以放我哋嘅相片</span></div><p class="memory-text">其實我對未來有好多想像.
-我想同你去唔同嘅地方, 試唔同嘅嘢,睇唔同嘅風景.
-雖然你經歷過好多嘅嘢, 已經有好多經驗
-但我都想同你經歷屬於我哋嘅習慣同默契, 創造更多回憶.
-我想我哋可以一齊笑、一齊玩、一齊做傻事.
-但我亦都知道, 真正嘅生活唔會永遠都係開心同浪漫.
-以後可能會有壓力、有爭執, 有大家意見唔同嘅時候.
-我唔需要我哋永遠唔會吵架, 亦都唔需要你永遠都做到最好.
-我只希望, 當我哋遇到問題嘅時候, 大家都仲願意好好溝通, 願意理解對方, 而唔係輕易放棄我哋.
-因為對我嚟講, 最重要嘅唔係每一日都要有幾轟烈嘅浪漫.
-而係過咗一段時間之後, 我哋仲會好自然咁選擇對方.
-我想要嘅未來, 唔一定要有幾完美嘅劇本.
-只要我哋都仲認真咁將對方放喺未來入面, 就已經好好~
-如果可以嘅話, 以後仲有好多生日, 好多節日, 好多普通嘅星期一.
-我都想同你一齊過。</p><button class="btn primary chapter-next" data-next="4" type="button">UNLOCK FINAL MESSAGE →</button></article><div class="panel center hidden" id="finalMessage"><div class="symbol">♡</div><h2>HAPPY BIRTHDAY, MY LOVE 🎂</h2><p class="purple">YOU ARE MY FAVOURITE PERSON.</p><p class="memory-text">生日快樂呀, 我最鍾意嘅人.♡
+<section class="screen" id="memories"><div class="eyebrow">SECRET LEVEL / OUR STORY</div><h1>OUR LITTLE<br/><span class="purple">UNIVERSE ♡</span></h1><article class="panel chapter memory-step" id="chapter1"><div class="chapter-label">CHAPTER 01</div><h2>WHERE IT ALL BEGAN</h2><div class="story-gallery" aria-label="Chapter 1 photo story"><div class="story-track"><div class="story-slide"><img src="images/ch1-1.jpg" alt="Chapter 1 memory 1" loading="lazy"/><div class="story-caption"><span class="story-count">MEMORY 01 / 05</span><p>記唔記得呢張相呢haha? 係我哋第一張嘅合照😳</p></div></div><div class="story-slide"><img src="images/ch1-2.jpg" alt="Chapter 1 memory 2" loading="lazy"/><div class="story-caption"><span class="story-count">MEMORY 02 / 05</span><p>第一次去日本大阪, 可以話係開心又唔開心嘅旅程, 個時係水族館聽你話想定居係日本...有啲傷心...不過希望呢個trip都帶到開心比你...😌</p></div></div><div class="story-slide"><img src="images/ch1-3.jpg" alt="Chapter 1 memory 3" loading="lazy"/><div class="story-caption"><span class="story-count">MEMORY 03 / 05</span><p>雖有冇浸到溫泉因為嚟m, 但都食左好多我想食嘅嘢, 同埋發現原來你都識幾多嘢同埋都幾有童心～</p></div></div><div class="story-slide"><img src="images/ch1-4.jpg" alt="Chapter 1 memory 4" loading="lazy"/><div class="story-caption"><span class="story-count">MEMORY 04 / 05</span><p>去左一直都想去嘅環球影城, 都好好玩，雖然個日其實都幾凍，但係都幾開心hehe</p></div></div><div class="story-slide"><img src="images/ch1-5.jpg" alt="Chapter 1 memory 5" loading="lazy"/><div class="story-caption"><span class="story-count">MEMORY 05 / 05</span><p>同你慶祝第一個生日~仲以為可以咁叻車你出去tim🫠🫠不過放心今年有~~</p></div></div></div><div class="story-controls"><button type="button" class="story-arrow story-prev" aria-label="上一張相">‹</button><div class="story-dots" aria-label="相片頁數"></div><button type="button" class="story-arrow story-next" aria-label="下一張相">›</button></div><p class="story-hint">← 左右滑動睇我哋嘅回憶 →</p></div><button class="btn primary chapter-next" data-next="2" type="button">NEXT CHAPTER →</button></article><article class="panel chapter memory-step hidden" id="chapter2"><div class="chapter-label">CHAPTER 02</div><h2>HOW IT ALL STARTED</h2><div class="story-gallery" aria-label="Chapter 2 photo story"><div class="story-track"><div class="story-slide"><img src="images/ch2-1.jpg" alt="Chapter 2 memory 1" loading="lazy"/><div class="story-caption"><span class="story-count">MEMORY 01 / 05</span><p>第一個情人節hehe～估唔到你會送花比我, 仲以為你係直男tim, 好有驚喜🤓</p></div></div><div class="story-slide"><img src="images/ch2-2.jpg" alt="Chapter 2 memory 2" loading="lazy"/><div class="story-caption"><span class="story-count">MEMORY 02 / 05</span><p>之後一齊去左好多地方又去食左好多嘢～有啲習慣不知不覺好似跟左你....</p></div></div><div class="story-slide"><img src="images/ch2-3.jpg" alt="Chapter 2 memory 3" loading="lazy"/><div class="story-caption"><span class="story-count">MEMORY 03 / 05</span><p>第一次同你去台中~坐你車永遠覺得係好穩陣, 同埋估唔到住左間幾有feel嘅旅館~</p></div></div><div class="story-slide"><img src="images/ch2-4.jpg" alt="Chapter 2 memory 4" loading="lazy"/><div class="story-caption"><span class="story-count">MEMORY 04 / 05</span><p>hehe估唔估到呢張呢? 無意中入左去呢間博物館, 你都好搞笑~</p></div></div><div class="story-slide"><img src="images/ch2-5.jpg" alt="Chapter 2 memory 5" loading="lazy"/><div class="story-caption"><span class="story-count">MEMORY 05 / 05</span><p>聖誕節~~好靚嘅燈飾, 食左幾好食嘅晚餐, 好想每一日都可以咁開心咁幸福~</p></div></div></div><div class="story-controls"><button type="button" class="story-arrow story-prev" aria-label="上一張相">‹</button><div class="story-dots" aria-label="相片頁數"></div><button type="button" class="story-arrow story-next" aria-label="下一張相">›</button></div><p class="story-hint">← 左右滑動睇我哋嘅回憶 →</p></div><button class="btn primary chapter-next" data-next="3" type="button">NEXT CHAPTER →</button></article><article class="panel chapter memory-step hidden" id="chapter3"><div class="chapter-label">CHAPTER 03</div><h2>WHERE WE ARE NOW</h2><div class="story-gallery" aria-label="Chapter 3 photo story"><div class="story-track"><div class="story-slide"><img src="images/ch3-1.jpg" alt="Chapter 3 memory 1" loading="lazy"/><div class="story-caption"><span class="story-count">MEMORY 01 / 05</span><p>帶lucky出去玩, 冇諗到你都係幾細心嘅人~</p></div></div><div class="story-slide"><img src="images/ch3-2.jpg" alt="Chapter 3 memory 2" loading="lazy"/><div class="story-caption"><span class="story-count">MEMORY 02 / 05</span><p>之後一齊返大陸玩, 一齊去玩卡丁車, 又幾開心keke</p></div></div><div class="story-slide"><img src="images/ch3-3.jpg" alt="Chapter 3 memory 3" loading="lazy"/><div class="story-caption"><span class="story-count">MEMORY 03 / 05</span><p>一齊去泰國, 日日都去按摩🤣基本上係食玩訓, 但都充夠電~</p></div></div><div class="story-slide"><img src="images/ch3-4.jpg" alt="Chapter 3 memory 4" loading="lazy"/><div class="story-caption"><span class="story-count">MEMORY 04 / 05</span><p>一齊去山頂睇日落, 又估唔到同你出去基本上天氣都幾好天</p></div></div><div class="story-slide"><img src="images/ch3-5.jpg" alt="Chapter 3 memory 5" loading="lazy"/><div class="story-caption"><span class="story-count">MEMORY 05 / 05</span><p>我諗最開心...都係見到你開心嘅樣我就足夠啦😘</p></div></div></div><div class="story-controls"><button type="button" class="story-arrow story-prev" aria-label="上一張相">‹</button><div class="story-dots" aria-label="相片頁數"></div><button type="button" class="story-arrow story-next" aria-label="下一張相">›</button></div><p class="story-hint">← 左右滑動睇我哋嘅回憶 →</p></div><button class="btn primary chapter-next" data-next="4" type="button">UNLOCK FINAL MESSAGE →</button></article><div class="panel center hidden" id="finalMessage"><div class="symbol">♡</div><h2>HAPPY BIRTHDAY, MY LOVE 🎂</h2><p class="purple">YOU ARE MY FAVOURITE PERSON.</p><p class="memory-text">生日快樂呀, 我最鍾意嘅人.♡
 首先, 祝你新一年身體健康、日日開心, 想做嘅事都可以慢慢實現.
 希望你遇到唔開心嘅時候, 有人可以聽你講, 攰嘅時候, 可以好好休息, 遇到困難嘅時候, 都有勇氣繼續行落去。
 我知道自己唔係一個好識講甜言蜜語嘅人.
@@ -518,6 +501,45 @@ I love you. Always in my own little way.💜</p></div></section>
           section.scrollIntoView({behavior:"smooth", block:"start"});
         }
       });
+    });
+
+    // Each photo has its own caption; swipe or use the arrows/dots.
+    document.querySelectorAll('.story-gallery').forEach(gallery => {
+      const track = gallery.querySelector('.story-track');
+      const slides = Array.from(gallery.querySelectorAll('.story-slide'));
+      const dots = gallery.querySelector('.story-dots');
+      const prev = gallery.querySelector('.story-prev');
+      const next = gallery.querySelector('.story-next');
+      let active = 0;
+      slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'story-dot';
+        dot.setAttribute('aria-label', `第 ${i + 1} 張相`);
+        dot.addEventListener('click', () => goTo(i));
+        dots.appendChild(dot);
+      });
+      function update(index) {
+        active = Math.max(0, Math.min(slides.length - 1, index));
+        dots.querySelectorAll('.story-dot').forEach((dot, i) => {
+          dot.classList.toggle('active', i === active);
+          dot.setAttribute('aria-current', i === active ? 'true' : 'false');
+        });
+        prev.disabled = active === 0;
+        next.disabled = active === slides.length - 1;
+      }
+      function goTo(index) {
+        update(index);
+        track.scrollTo({left: slides[active].offsetLeft - slides[0].offsetLeft, behavior:'smooth'});
+      }
+      prev.addEventListener('click', () => goTo(active - 1));
+      next.addEventListener('click', () => goTo(active + 1));
+      let raf = 0;
+      track.addEventListener('scroll', () => {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => update(Math.round(track.scrollLeft / track.clientWidth)));
+      }, {passive:true});
+      update(0);
     });
 </script>
 </body>
